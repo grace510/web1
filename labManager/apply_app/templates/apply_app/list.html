@@ -1,0 +1,40 @@
+
+{%extends "Myregister.html"%}
+{%load static%}
+{%block Form%}
+<div class ="row">
+        
+    <div class = "col-lg-7">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">실험 목록</h1>
+            </div>
+
+            {% for exp in exps %}
+
+            <!-- Basic Card Example -->
+            <form action="./selectExperiment/" method="GET">
+                <input type="hidden" id="id" name="id" value="{{ exp.id }}"></input>
+                <input type="hidden" id="name" name="name" value="{{ exp.name }}"></input>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">{{ exp.name }}
+                            <span>
+                            <button type="submit">APPLY</button>
+                            </span>   
+                        </h6>                       
+                    </div>
+                    <div class="card-body">
+                        {{exp.desc}} 
+                                            
+                    </div>
+                </div>
+            </form>
+            {% endfor%}
+
+
+        </div>
+    </div>
+</div>
+    
+{%endblock Form%}

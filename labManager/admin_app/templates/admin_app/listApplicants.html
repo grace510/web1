@@ -1,0 +1,65 @@
+{%extends "Myblank.html"%}
+<!DOCTYPE html>
+ <head>
+
+ </head>
+ <body>
+    {%block cards%}
+                   
+
+     <!-- DataTales Example -->
+     <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">{{expName}}</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>신청일</th>
+                            <th>이름</th>
+                            <th>연락처</th>
+                            <th>비고</th> 
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>신청일</th>
+                            <th>이름</th>
+                            <th>연락처</th>
+                            <th>비고</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for applicant in applicants %}
+
+                        <tr>
+                            <td>{{ applicant.date }}</td>
+                            <td>{{ applicant.name }}</td>
+                            <td>{{ applicant.phoneNum }}</td>                          
+                            <td>{{applicant.desc}}</td> 
+                            <form action="./deleteApplicant/" method="GET"> 
+                                <input type="hidden" id="id" name="Aid" value="{{ applicant.id }}"></input> 
+                                <input type="hidden" id="id" name="Eid" value="{{ expID }}"></input> 
+                                <td>
+                                    <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">목록에서 제거</button>
+                                </td> 
+                            </form>    
+                            <form action="./showConfirmForm/" method="GET"> 
+                                <input type="hidden" id="id" name="Aid" value="{{ applicant.id }}"></input> 
+                                <input type="hidden" id="id" name="Eid" value="{{ expID }}"></input> 
+                                <td>
+                                    <button type="submit" onclick="return confirm('컨펌하시겠습니까?')">컨펌</button>
+                                </td> 
+                            </form>                       
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {%endblock cards%}
+ </body>
+</html>

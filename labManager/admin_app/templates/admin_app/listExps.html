@@ -1,0 +1,150 @@
+{%extends "Myblank.html"%}
+{%load static%}
+{%block sidebar%}
+    
+{%endblock sidebar%}
+
+{%block cards%}
+<div class="container-fluid">
+
+    
+    <!--  Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">진행중인 실험</h1>
+        <a href="ExpForm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-download fa-sm text-white-50"></i> 실험 추가하기</a>
+    </div>
+
+    <div class="row">
+        <script> 
+            let ratio;
+            function getRatio(x,y){
+                console.log((x/y)*100);
+                return (x/y)*100;
+            }
+            let waitingCount;
+            let appCount;
+        </script>
+        {% regroup waitings by expID as waiting_dict %}
+        {% regroup applicants by expID as app_dict %}
+        {% for exp in exps %} 
+        <!-- 실험별 컨펌대기 피험자 -->
+        <script>
+            {% for waiting in waiting_dict %}
+                if ( {{waiting.grouper}} == {{exp.id}} ){
+                    waitingCount = {{waiting.list|length}}
+                    //console.log({{waiting.grouper}},waitingCount)                   
+                }
+            {% endfor %}
+        </script>
+        <script>
+            appCount=0
+            {% for app in app_dict %}
+                if ( {{app.grouper}} == {{exp.id}} ){
+                    appCount = appCount+=1
+                    console.log({{app.grouper}},appCount)                 
+                }
+            {% endfor %}                               
+        </script>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">                   
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-m font-weight-bold text-warning text-uppercase mb-1">
+                                {{ exp.name }}</div>          
+                            
+                        </div>
+                        
+                        <form action="./selectExperiment/" method="GET">
+                        <input type="hidden" id="id" name="id" value="{{ exp.id }}"></input>
+                        <input type="hidden" id="name" name="name" value="{{ exp.name }}"></input>
+                        <div class="col-auto">
+                            
+                            <button type = "submit" ><script>document.write(waitingCount)</script>명 대기중</button>
+                        </div>
+                        </form>
+                    </div>
+                    <p></p>
+                    <h4 class="small font-weight-bold" >목표 {{exp.targetNum}}명
+                        <span class="float-right" >
+                            <script>
+                                ratio = getRatio(appCount,{{exp.targetNum}}); 
+                                document.write(ratio);                          
+                            </script>
+                            %
+                        </span></h4>
+                        
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-danger" id ="{{ exp.name }}" role="progressbar" style="width: {{10}}%"
+                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        <script>
+                            document.getElementById("{{ exp.name }}").style.width = ratio+"%";
+                        </script>
+                    </div>
+                    <div class="row">
+                        <div class="h8 mb-0 font-weight-bold text-gray-800"><script>document.write(appCount)</script>명 진행완료</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    
+
+    <div class ="row">
+    <div class="col-xl-12 col-lg-7">
+            
+        <!--컨펌처리 된 피험자 목록 == 실험일정 , date기준으로 정렬 -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">실험 일정</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+     
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>신청실험</th>
+                                        <th>실험일자</th>
+                                        <th>이름</th>
+                                        <th>연락처</th>
+                                        <th>비고</th> 
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>신청실험</th>
+                                        <th>실험일자</th>
+                                        <th>이름</th>
+                                        <th>연락처</th>
+                                        <th>비고</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {% for applicant in applicants %}
+
+                                    <tr>
+                                        <td>{{ applicant.expName }}</td>
+                                        <td>{{ applicant.date }}</td>
+                                        <td>{{ applicant.name }}</td>
+                                        <td>{{ applicant.phoneNum }}</td>                          
+                                        <td>{{applicant.desc}}</td> 
+                                                            
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                             
+                </div>
+            </div>
+        </div>
+    </div> 
+    </div>
+
+    
+</div>
+
+{%endblock cards%}

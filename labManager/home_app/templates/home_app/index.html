@@ -1,0 +1,34 @@
+{%extends "Myregister.html"%}
+{%load static%}
+{%block Form%}
+
+<div class="row">
+
+    <div class="col-lg-6">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-2">환영합니다!</h1>
+                <p class="mb-4">00연구실에서 피험자를 모집합니다. 현재 다양한 실험을 진행중이니 목록을 확인하고 요건에 맞는 실험에 참여하세요!</p>
+            </div>
+            <a href="/apply/showExps" class="btn btn-google btn-user btn-block">
+                실험 참가 신청하기 
+           </a>
+           <hr>
+            
+            
+            <hr>
+            <form class="user">
+                <div class="form-group">
+                    <input type="email" class="form-control form-control-user"
+                        id="exampleInputEmail" aria-describedby="emailHelp"
+                        placeholder="Admin 계정 입력">
+                </div>
+                <a href="/admin/showExps" class="btn btn-primary btn-user btn-block">
+                    연구원 로그인
+                </a>
+            </form>
+           
+        </div>
+    </div>
+</div>
+{%endblock%}

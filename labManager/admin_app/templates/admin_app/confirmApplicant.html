@@ -1,0 +1,45 @@
+{%extends "Myregister.html"%}
+{%block Form%}
+{% load static %}
+
+<div class ="row">
+        
+        
+    <div class="p-5">
+        <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">일정 컨펌</h1>
+        </div>
+        <form class="user" action="./confirmApplicant/" method="POST"  onsubmit= "">{% csrf_token %}
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="date" class="form-control form-control-user" id="date" name="date"
+                        placeholder="실험 날짜">
+                </div>
+                               
+            </div>
+            
+            <input type="hidden" id="id" name="Aid" value= {{applicant_id}}></input> 
+            <input type="hidden" id="_id" name="Eid" value= {{expID}}></input>
+            <script>
+                function alertFunc(){
+                    alert("제출되었습니다.");
+                }
+            </script>
+            <button onclick="alertFunc()" class="btn btn-primary btn-user btn-block" type="submit">
+                신청하기
+            </button>
+            
+        </form>
+        <hr>
+        
+        <div class="text-center">
+            <a class="small" href="showApplicants"> 실험목록으로 돌아가기</a>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+{%endblock%}

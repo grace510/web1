@@ -1,0 +1,43 @@
+
+ {%extends "Myregister.html"%}
+ {%block Form%}
+ {% load static %}
+ <div class ="row">
+        
+    <div class = "col-lg-7">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">새로운 실험 생성</h1>
+            </div>
+            <form class="user" action="createExperiment" method="POST" name="newApplicant" onsubmit= "">{% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <input type="text" class="form-control form-control-user" id="name" name="name"
+                            placeholder="실험명">
+                    </div>     
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <input type="number" class="form-control form-control-user" id="targetNum" name="targetNum"
+                            placeholder="목표 피험자수">
+                    </div>         
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" class="form-control form-control-user" id="desc" name = "desc"
+                        placeholder="실험 세부사항을 적어주세요">
+                </div>
+
+                <button  class="btn btn-primary btn-user btn-block" type="submit" onclick="javascript:alert('추가되었습니다!');">
+                    생성하기
+                </button>
+                
+            </form>
+            <hr>
+            
+            <div class="text-center">
+                <a class="small" href="/admin/showExps"> 실험목록으로 돌아가기</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{%endblock Form%}

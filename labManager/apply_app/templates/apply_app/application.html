@@ -1,0 +1,53 @@
+{%extends "Myregister.html"%}
+{%block Form%}
+{% load static %}
+
+
+     <div class ="row">
+        
+        <div class = "col-lg-6">
+            <div class="p-5">
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">{{expName}}</h1>
+                </div>
+                <form class="user" action="createApplicant" method="POST" name="newApplicant" onsubmit= "">{% csrf_token %}
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user" id="name" name="name"
+                                placeholder="이름">
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                        <input type="tel" pattern="[0-9]{11}" class="form-control form-control-user" id="phoneNum" name = "phoneNum"
+                            placeholder="연락처( '-' 없이 숫자만)">
+                        </div>                 
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-user" id="desc" name = "desc"
+                            placeholder="특이사항이 있다면 적어주세요">
+                    </div>
+                    <input type="hidden" id="_id" name="expID" value= {{expID}}></input>
+                    <script>
+                        function alertFunc(){
+                            alert("제출되었습니다.");
+                        }
+                    </script>
+                    <button onclick="alertFunc()" class="btn btn-primary btn-user btn-block" type="submit">
+                        신청하기
+                    </button>
+                    
+                </form>
+                <hr>
+                
+                <div class="text-center">
+                    <a class="small" href="/apply/showExps"> 실험목록으로 돌아가기</a>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <!--"javascript:alert('Hello World!');"-->
+ 
+{%endblock Form%}
